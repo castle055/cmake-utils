@@ -1,7 +1,7 @@
 # Copyright (c) 2024, Víctor Castillo Agüero.
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-macro(target_configure_test_directory TEST_TARGET TEST_DIR)
+macro(target_configure_test_directory TEST_TARGET TEST_DIR TEST_TARGET_LIST)
     enable_testing()
 
     add_custom_target(TEST_SUITE_${TEST_TARGET})
@@ -23,6 +23,7 @@ macro(target_configure_test_directory TEST_TARGET TEST_DIR)
 
         get_filename_component(TName ${test} NAME_WLE)
         add_executable(TEST_${TName} ${test})
+        LIST(APPEND ${TEST_TARGET_LIST} TEST_${TName})
         target_link_libraries(TEST_${TName} PRIVATE ${TEST_TARGET})
         target_include_directories(TEST_${TName} PRIVATE ${TEST_DIR}/common)
 
